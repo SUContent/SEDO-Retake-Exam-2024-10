@@ -10,6 +10,7 @@ pipeline {
                 bat 'dotnet restore'
             }
         }
+
         stage('Build project') {
             when {
                 branch 'feature-ci-pipeline'
@@ -18,6 +19,7 @@ pipeline {
                 bat 'dotnet build --no-restore'
             }
         }
+
         stage('Execute tests') {
             when {
                 branch 'feature-ci-pipeline'
