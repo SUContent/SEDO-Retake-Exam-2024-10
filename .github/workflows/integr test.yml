@@ -1,0 +1,27 @@
+name: Build run int
+
+on:
+  push:
+    branches: [ "staging" ]
+jobs:
+  build_integration_tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET  version 6
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore depends
+      run: dotnet restore
+      
+    - name: Build project
+      run: dotnet build --no-restore
+      
+    - name: Execute int test
+      run: dotnet test Homies.IntegrationTests\Homies.IntegrationTests.csproj --no-build --verbosity normal
